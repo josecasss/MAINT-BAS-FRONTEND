@@ -3,7 +3,6 @@
     xmlns:core="sap.ui.core"
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:vizData="sap.viz.ui5.data"
-    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
     controllerName="maintnoti.maint.ext.analytics.AnalyticsPage">
 
     <Page showHeader="false">
@@ -47,16 +46,28 @@
 
                     <!-- Filters -->
                     <HBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom" alignItems="Center" wrap="Wrap">
-                        <Label text="Status" class="sapUiSmallMarginEnd" />
-                        <Select id="filterStatus" change=".onFilterChange" class="sapUiSmallMarginEnd" width="12rem">
+                        <Label text="Status:" class="sapUiTinyMarginEnd" />
+                        <Select id="filterStatus" change=".onFilterChange" class="sapUiSmallMarginEnd" width="11rem">
                             <items>
                                 <core:Item key="" text="All Statuses" />
                             </items>
                         </Select>
-                        <Label text="Priority" class="sapUiSmallMarginEnd" />
-                        <Select id="filterPriority" change=".onFilterChange" class="sapUiSmallMarginEnd" width="12rem">
+                        <Label text="Priority:" class="sapUiTinyMarginEnd" />
+                        <Select id="filterPriority" change=".onFilterChange" class="sapUiSmallMarginEnd" width="11rem">
                             <items>
                                 <core:Item key="" text="All Priorities" />
+                            </items>
+                        </Select>
+                        <Label text="Plant:" class="sapUiTinyMarginEnd" />
+                        <Select id="filterPlant" change=".onFilterChange" class="sapUiSmallMarginEnd" width="11rem">
+                            <items>
+                                <core:Item key="" text="All Plants" />
+                            </items>
+                        </Select>
+                        <Label text="Technician:" class="sapUiTinyMarginEnd" />
+                        <Select id="filterTechnician" change=".onFilterChange" class="sapUiSmallMarginEnd" width="13rem">
+                            <items>
+                                <core:Item key="" text="All Technicians" />
                             </items>
                         </Select>
                         <Button text="Reset" icon="sap-icon://clear-filter" type="Transparent" press=".onResetFilters" />
@@ -88,10 +99,6 @@
                                     </vizData:measures>
                                 </vizData:FlattenedDataset>
                             </viz:dataset>
-                            <viz:feeds>
-                                <vizFeeds:FeedItem uid="valueAxis"    type="Measure"   values="['SLA Hours']" />
-                                <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="['Status']" />
-                            </viz:feeds>
                         </viz:VizFrame>
                     </VBox>
 
@@ -121,10 +128,6 @@
                                     </vizData:measures>
                                 </vizData:FlattenedDataset>
                             </viz:dataset>
-                            <viz:feeds>
-                                <vizFeeds:FeedItem uid="valueAxis"    type="Measure"   values="['SLA Hours']" />
-                                <vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="['Priority']" />
-                            </viz:feeds>
                         </viz:VizFrame>
                     </VBox>
 
