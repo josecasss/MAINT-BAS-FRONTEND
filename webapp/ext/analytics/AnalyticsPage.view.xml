@@ -39,17 +39,10 @@
                       </GenericTile>
                   </HBox>
 
-                  <macros:FilterBar id="analyticsFilterBar"
-                                    contextPath="/MaintNotificationAnal"
-                                    metaPath="@com.sap.vocabularies.UI.v1.SelectionFields"
-                                    variantManagement="None"
-                                    class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom" />
-
                   <Title text="SLA Hours by Status" class="sapUiSmallMarginBegin sapUiSmallMarginBottom" />
                   <macros:Chart id="chartByStatus"
                                 contextPath="/MaintNotificationAnal"
                                 metaPath="@com.sap.vocabularies.UI.v1.Chart#NotifByStatus"
-                                filterBar="analyticsFilterBar"
                                 personalization="Sort,Type,Item"
                                 variantManagement="None" />
 
@@ -57,7 +50,6 @@
                   <macros:Chart id="chartByPriority"
                                 contextPath="/MaintNotificationAnal"
                                 metaPath="@com.sap.vocabularies.UI.v1.Chart#NotifByPriority"
-                                filterBar="analyticsFilterBar"
                                 personalization="Sort,Type,Item"
                                 variantManagement="None" />
               </VBox>
