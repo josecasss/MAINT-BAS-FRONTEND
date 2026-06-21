@@ -1,0 +1,305 @@
+{
+  "_version": "1.83.1",
+  "sap.app": {
+    "id": "maintnoti.maint",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.26.0",
+      "toolsId": "28c2b9e0-0f96-426a-b45d-1c02338ca62d"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zui_maintnotification_o4/srvd/sap/zui_maintnotification_o4/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "maint-display": {
+          "semanticObject": "MaintenanceNotification",
+          "action": "display",
+          "title": "Maintenance Notifications",
+          "subtitle": "Manage maintenance notifications",
+          "icon": "sap-icon://wrench",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        },
+        "maint-analytics": {
+          "semanticObject": "MaintenanceNotification",
+          "action": "analytics",
+          "title": "Maintenance Analytics",
+          "subtitle": "SLA Hours by Status & Priority",
+          "icon": "sap-icon://chart-bar",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.145.3",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.f": {},
+        "sap.viz": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "maintnoti.maint.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MaintNotificationList",
+          "target": [
+            "MaintNotificationList"
+          ]
+        },
+        {
+          "pattern": "MaintNotification({key}):?query:",
+          "name": "MaintNotificationObjectPage",
+          "target": [
+            "MaintNotificationList",
+            "MaintNotificationObjectPage"
+          ]
+        },
+        {
+          "pattern": "MaintNotification({key})/_MaintItem({key2}):?query:",
+          "name": "MaintItemObjectPage",
+          "target": [
+            "MaintNotificationList",
+            "MaintNotificationObjectPage",
+            "MaintItemObjectPage"
+          ]
+        },
+        {
+          "pattern": "Analytics:?query:",
+          "name": "MaintNotificationAnal",
+          "target": [
+            "MaintNotificationAnal"
+          ]
+        }
+      ],
+      "targets": {
+        "MaintNotificationList": {
+          "type": "Component",
+          "id": "MaintNotificationList",
+          "name": "sap.fe.templates.ListReport",
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": "",
+          "options": {
+            "settings": {
+              "contextPath": "/MaintNotification",
+              "variantManagement": "Control",
+              "initialLoad": true,
+              "navigation": {
+                "MaintNotification": {
+                  "detail": {
+                    "route": "MaintNotificationObjectPage"
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "tab_all",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_All",
+                    "label": "All"
+                  },
+                  {
+                    "key": "tab_veryhigh",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_VeryHigh",
+                    "label": "Very High"
+                  },
+                  {
+                    "key": "tab_high",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_High",
+                    "label": "High"
+                  },
+                  {
+                    "key": "tab_medium",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_Medium",
+                    "label": "Medium"
+                  },
+                  {
+                    "key": "tab_low",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_Low",
+                    "label": "Low"
+                  },
+                  {
+                    "key": "tab_chart",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_Chart",
+                    "label": "Chart"
+                  }
+                ]
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  },
+                  "actions": {
+                    "NavigateToAnalytics": {
+                      "press": "maintnoti.maint.ext.CustomActions.navigateToAnalytics",
+                      "enabled": true,
+                      "text": "Analytics",
+                      "visible": true
+                    }
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPV_All": {
+                  "defaultPath": "default"
+                }
+              }
+            }
+          }
+        },
+        "MaintNotificationObjectPage": {
+          "type": "Component",
+          "id": "MaintNotificationObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/MaintNotification({key})",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/MaintNotification",
+              "navigation": {
+                "_MaintItem": {
+                  "detail": {
+                    "route": "MaintItemObjectPage"
+                  }
+                }
+              },
+              "variantManagement": "Control"
+            }
+          }
+        },
+        "MaintItemObjectPage": {
+          "type": "Component",
+          "id": "MaintItemObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "controlAggregation": "endColumnPages",
+          "contextPattern": "/MaintNotification({key})/_MaintItem({key2})",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/MaintNotification/_MaintItem"
+            }
+          }
+        },
+        "MaintNotificationAnal": {
+          "type": "Component",
+          "id": "MaintNotificationAnal",
+          "name": "sap.fe.core.fpm",
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": "",
+          "options": {
+            "settings": {
+              "viewName": "maintnoti.maint.ext.analytics.AnalyticsPage",
+              "contextPath": "/MaintNotificationAnal"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "maintnotimaint"
+  }
+}
